@@ -18,17 +18,17 @@ A C++ program that provides basic file system operations like navigating directo
 
 ## Commands
 --h     help          : List all available operations\
---movi  move_in       : Enter a directory
---movo  move_out      : Exit current directory
---nfi   new_file      : Create a new file
---nfo   new_folder    : Create a new folder
---dfi   delete_file   : Delete a file
---dfo   delete_folder : Delete a folder
---cfi   copy_file     : Copy a file (pending)
---cfo   copy_folder   : Copy a folder (pending)
---pfi   paste_file    : Paste a file (pending)
---pfo   paste_folder  : Paste a folder (pending)
---curp  current_path  : Show current directory path
+--movi  move_in       : Enter a directory\
+--movo  move_out      : Exit current directory\
+--nfi   new_file      : Create a new file\
+--nfo   new_folder    : Create a new folder\
+--dfi   delete_file   : Delete a file\
+--dfo   delete_folder : Delete a folder\
+--cfi   copy_file     : Copy a file (pending)\
+--cfo   copy_folder   : Copy a folder (pending)\
+--pfi   paste_file    : Paste a file (pending)\
+--pfo   paste_folder  : Paste a folder (pending)\
+--curp  current_path  : Show current directory path\
 
 ### Example Flow
 1. Program starts by showing available drives/partitions
@@ -56,10 +56,10 @@ A C++ program that provides basic file system operations like navigating directo
 - Additional error handling
 
 ## How to Compile
-bash
+bash\
 g++ -std=c++17 main.cpp -o filesystem_manager
 
-- Then run
+- Then run\
 ./filesystem_manager
 
 
