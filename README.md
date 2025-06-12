@@ -54,10 +54,10 @@ A C++ program that provides basic file system operations like navigating directo
 ## How to run
 - Clone the repo\
 - `git clone https://github.com/n0th9ng2311/c-FileManager-cmd-based-.git`
-- `cd c-FileManager-cmd-based-`
+- `cd c-FileManager-cmd-based-`\
 
-- Compile the files
-`g++ -std=c++17 main.cpp -o filesystem_manager`
+- Compile the files\
+`g++ -std=c++17 main.cpp -o filesystem_manager`\
 
 - Then run\
 `./filesystem_manager`
