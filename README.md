@@ -57,9 +57,9 @@ A C++ program that provides basic file system operations like navigating directo
 
 ## How to Compile
 - bash\
-g++ -std=c++17 main.cpp -o filesystem_manager
+`g++ -std=c++17 main.cpp -o filesystem_manager`
 
 - Then run\
-./filesystem_manager
+`./filesystem_manager`
 
 
