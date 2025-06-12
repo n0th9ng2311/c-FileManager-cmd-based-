@@ -9,7 +9,7 @@ A C++ program that provides basic file system operations like navigating directo
 - **File operations**:
   - Create new files (txt, csv, docx, pptx)
   - Delete files
-  - Copy/paste files (implementation pending)
+  - Copy/paste files 
 - **Folder operations**:
   - Create new folders
   - Delete folders
@@ -27,10 +27,8 @@ A C++ program that provides basic file system operations like navigating directo
 | `--nfo`   | `new_folder`   | Create a new folder              |
 | `--dfi`   | `delete_file`  | Delete a file                    |
 | `--dfo`   | `delete_folder`| Delete a folder                  |
-| `--cfi`   | `copy_file`    | Copy a file *(pending)*          |
+| `--cfi`   | `copy_file`    | Copy a file                      |
 | `--cfo`   | `copy_folder`  | Copy a folder *(pending)*        |
-| `--pfi`   | `paste_file`   | Paste a file *(pending)*         |
-| `--pfo`   | `paste_folder` | Paste a folder *(pending)*       |
 | `--curp`  | `current_path` | Show current directory path      |
 
 
@@ -51,13 +49,7 @@ A C++ program that provides basic file system operations like navigating directo
 - Uses C++17's `<filesystem>` library for most operations
 - Windows-specific code for partition detection using WinAPI
 - Maintains a stack of visited directories for navigation
-- Basic error handling for filesystem operations
-
-## Pending Features
-
-- Complete implementation of copy/paste operations
-- File sorting functionality
-- Additional error handling
+- Error handling for filesystem operations
 
 ## How to Compile
 - bash\
