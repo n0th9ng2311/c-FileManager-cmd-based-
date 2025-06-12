@@ -53,7 +53,7 @@ A C++ program that provides basic file system operations like navigating directo
 
 ## How to run
 - Clone the repo\
-  `git clone https://github.com/n0th9ng2311/c-FileManager-cmd-based-.git`
+  `git clone https://github.com/n0th9ng2311/c-FileManager-cmd-based-.git`\
   `cd c-FileManager-cmd-based-`
 
 - Compile the files\
