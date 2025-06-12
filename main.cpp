@@ -1,21 +1,11 @@
-//WHAT I WANT FROM THE PROJECT
-//--> Should be able to display files
-//--> Should be able to move in and out of a directory
-//--> Give the location of a file
-//--> copy files from one directory to other
-//--> Should be able to make new files
-//--> Should be able to make new folders
-//--> Should be able to delete them
-//--> Should be able to sort them in different order
-
 #include<iostream>
 #include<filesystem>
 #include<fstream>
 #include<string>
 #include<vector>
-#include<windows.h>
-#include<tchar.h>
-#include<stdio.h>
+#include <windows.h>
+#include <tchar.h>
+#include <stdio.h>
 
 //----------------------------------------------------------------------------------------
 namespace drivePar
@@ -144,18 +134,6 @@ public:
             cout<<'\n';
             choiceFnc();//choice function again for further work
         }
-        if(choice == "--pfi")
-        {
-            pasteFile();//calls in 'paste file' function to paste a file in a folder/directory
-            cout<<'\n';
-            choiceFnc();//choice function again for further work
-        }
-        if(choice == "--pfo")
-        {
-            pasteFolder();//calls in'paste folder' function to paste a folder in a folder/directory
-            cout<<'\n';
-            choiceFnc();//choice function again for further work
-        }
         if(choice == "--curp")
         {
             cout<< "Current path: "<< get_curr_dir()<<"\n\n";//calls in a function to display the last directory entered into by the user
@@ -183,8 +161,6 @@ fs::path get_curr_dir() const {return prev_path.back();}//function to return the
             <<"--dfo      delete_folder  :gives you option to delete a folder.\n"
             <<"--cfi      copy_file      :gives you option to copy a file.\n"
             <<"--cfo      copy_folder    :gives you option to copy a folder.\n"
-            <<"--pfi      paste_file     :gives you option to paste the file.\n"
-            <<"--pfo      paste_folder   :gives you option to paste the folder.\n"
             <<"--curp     current_path   :gives you current path/directory.\n";
     }
 //---------------------------------------------------------------------------------------------
@@ -285,21 +261,25 @@ fs::path get_curr_dir() const {return prev_path.back();}//function to return the
             getline(cin>>std::ws, file_name);
             string file_path = (prev_path.back()).string()+"\\";
 
-            ofstream outFile{file_path+file_name+".txt"};
             auto check_path_existance = file_path+file_name+".txt";
 
-            if(!outFile)//checks if file was created
-            {
-                cerr<<"Error opening file\n";
-            }
-            else if(fs::exists(check_path_existance))//checks if file is already present
+            if(fs::exists(check_path_existance))//checks if file is already present
             {
                 cout<<"File already exists\n";
             }
             else
             {
-                cout<<"File created successfully\n";
+                ofstream outFile{file_path+file_name+".txt"};
+                if(!outFile)//checks if file was created
+                {
+                    cerr<<"Error opening file\n";
+                }
+                else
+                {
+                    cout<<"File created successfully\n";
+                }
             }
+
         }
         if (choice_file == 2)
         {
@@ -308,20 +288,23 @@ fs::path get_curr_dir() const {return prev_path.back();}//function to return the
             getline(cin>>std::ws, file_name);
             string file_path = (prev_path.back()).string()+"\\";
 
-            ofstream outFile{file_path+file_name+".csv"};
             auto check_path_existance = file_path+file_name+".csv";
 
-            if(!outFile)
-            {
-                cerr<<"Error opening file\n";
-            }
-            else if(fs::exists(check_path_existance))
+            if(fs::exists(check_path_existance))
             {
                 cout<<"File already exists\n";
             }
             else
             {
-                cout<<"File created successfully\n";
+                ofstream outFile{file_path+file_name+".csv"};
+                if(!outFile)
+                {
+                    cerr<<"Error opening file\n";
+                }
+                else
+                {
+                    cout<<"File created successfully\n";
+                }
             }
         }
         if (choice_file == 3)
@@ -331,20 +314,23 @@ fs::path get_curr_dir() const {return prev_path.back();}//function to return the
             getline(cin>>std::ws, file_name);
             string file_path = (prev_path.back()).string()+"\\";
 
-            ofstream outFile{file_path+file_name+".docx"};
             auto check_path_existance = file_path+file_name+".docx";
 
-            if(!outFile)
-            {
-                cerr<<"Error opening file\n";
-            }
-            else if(fs::exists(check_path_existance))
+            if(fs::exists(check_path_existance))
             {
                 cout<<"File already exists\n";
             }
             else
             {
-                cout<<"File created successfully\n";
+                ofstream outFile{file_path+file_name+".docx"};
+                if(!outFile)
+                {
+                    cerr<<"Error opening file\n";
+                }
+                else
+                {
+                    cout<<"File created successfully\n";
+                }
             }
          }
 
@@ -355,20 +341,23 @@ fs::path get_curr_dir() const {return prev_path.back();}//function to return the
             getline(cin>>std::ws, file_name);
             string file_path = (prev_path.back()).string()+"\\";
 
-            ofstream outFile{file_path+file_name+".pptx"};
             auto check_path_existance = file_path+file_name+".pptx";
 
-            if(!outFile)
-            {
-                cerr<<"Error opening file\n";
-            }
-            else if(fs::exists(check_path_existance))
+            if(fs::exists(check_path_existance))
             {
                 cout<<"File already exists\n";
             }
             else
             {
-                cout<<"File created successfully\n";
+                ofstream outFile{file_path+file_name+".pptx"};
+                if(!outFile)
+                {
+                    cerr<<"Error opening file\n";
+                }
+                else
+                {
+                    cout<<"File created successfully\n";
+                }
             }
         }
     }
@@ -441,10 +430,55 @@ fs::path get_curr_dir() const {return prev_path.back();}//function to return the
         }
     }
     //-------------------------------------------------------------------------------------------
-    void copyFile(){}
+    void copyFile()
+    {
+        string file_to_move{};
+        fs::path source_path{};
+        fs::path destination_path{};
+
+        while(true)
+        {
+            cout<< "Please enter the name of file to be copied: ";
+            getline(cin>>std::ws, file_to_move);
+
+            fs::path temp_source_path = (prev_path.back()).string() + "\\" + file_to_move;
+
+            if(fs::exists(temp_source_path))
+            {
+                source_path = temp_source_path;
+                break;
+            }
+            else
+            {
+                cout<< "Please enter a valid file\n";
+            }
+        }
+
+        while(true)
+            {
+                string temp_destination_path{};
+                cout<< "Please enter the directory you want to paste this file in: ";
+                getline(cin>>std::ws, temp_destination_path);
+
+                if(fs::exists(temp_destination_path))
+                {
+                    destination_path = temp_destination_path;
+                    break;
+                }
+                else
+                {
+                    cout<<"Enter a valid path\n";
+                }
+            }
+            try{
+                fs::copy(source_path, destination_path);
+                std::cout << "File copied successfully!\n";
+                } catch (const fs::filesystem_error& e) {
+                std::cerr << "Error copying file: " << e.what() << '\n';
+                }
+        }
+
     void copyFolder(){}
-    void pasteFile(){}
-    void pasteFolder(){}
 };
 
 //------------------------------------------------------------------------------------------------
