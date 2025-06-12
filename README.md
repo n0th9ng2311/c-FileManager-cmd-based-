@@ -17,7 +17,7 @@ A C++ program that provides basic file system operations like navigating directo
 - **System information**: View available drives/partitions with details
 
 ## Commands
---h     help             : List all available operations\
+--h           help             : List all available operations\
 --movi  move_in       : Enter a directory\
 --movo  move_out      : Exit current directory\
 --nfi   new_file      : Create a new file\
