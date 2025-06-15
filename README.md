@@ -13,7 +13,7 @@ A C++ program that provides basic file system operations like navigating directo
 - **Folder operations**:
   - Create new folders
   - Delete folders
-  - Copy/paste folders (implementation pending)
+  - Copy/paste folders 
 - **System information**: View available drives/partitions with details
 
 ## Commands
@@ -28,7 +28,7 @@ A C++ program that provides basic file system operations like navigating directo
 | `--dfi`   | `delete_file`  | Delete a file                    |
 | `--dfo`   | `delete_folder`| Delete a folder                  |
 | `--cfi`   | `copy_file`    | Copy a file                      |
-| `--cfo`   | `copy_folder`  | Copy a folder *(pending)*        |
+| `--cfo`   | `copy_folder`  | Copy a folder                    |
 | `--curp`  | `current_path` | Show current directory path      |
 
 
