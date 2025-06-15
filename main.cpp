@@ -364,14 +364,14 @@ fs::path get_curr_dir() const {return prev_path.back();}//function to return the
  //---------------------------------------------------------------------------------------
     void newFolder()
     {
-        string folder_name{};
+        string folder_name{}; //variable to hold the folder name
         cout<<"Name of folder: ";
         getline(cin>>std::ws, folder_name);
 
         string folder_dir = (prev_path.back()).string()+"\\";
-        fs::path folder_loc = folder_dir+folder_name;
+        fs::path check_folder_existance = folder_dir+folder_name;
 
-        if(fs::exists(folder_loc))//check if said folder already exists
+        if(fs::exists(check_folder_existance))//check if said folder already exists
         {
             cout<< "Folder already exists"<<'\n';
         }
@@ -408,8 +408,8 @@ fs::path get_curr_dir() const {return prev_path.back();}//function to return the
             cerr<< "Filesystem error: "<< err.what()<< '\n';
         }
     }
-    //--------------------------------------------------------------------------------------
-    void deleteFile()
+//--------------------------------------------------------------------------------------
+void deleteFile()
     {
         try
         {
@@ -429,10 +429,11 @@ fs::path get_curr_dir() const {return prev_path.back();}//function to return the
             cerr<<"Filesystem error: "<< err.what()<<'\n';
         }
     }
-    //-------------------------------------------------------------------------------------------
-    void copyFile()
-    {
-        string file_to_move{};
+//-------------------------------------------------------------------------------------------
+void copyFile()
+    try
+     {
+        string file_to_move{}; //declaring required variables for copyFile()
         fs::path source_path{};
         fs::path destination_path{};
 
@@ -443,42 +444,104 @@ fs::path get_curr_dir() const {return prev_path.back();}//function to return the
 
             fs::path temp_source_path = (prev_path.back()).string() + "\\" + file_to_move;
 
-            if(fs::exists(temp_source_path))
+            if(fs::exists(temp_source_path))//checking if the source path exists
             {
                 source_path = temp_source_path;
                 break;
             }
             else
-            {
+            {    
                 cout<< "Please enter a valid file\n";
+                cin.clear();
             }
         }
-
+            
         while(true)
+        {
+            string temp_destination_path{};
+            cout<< "Please enter the directory you want to paste this file in: ";
+            getline(cin>>std::ws, temp_destination_path);
+
+            if(fs::exists(temp_destination_path))//checking if destination path exists
             {
-                string temp_destination_path{};
-                cout<< "Please enter the directory you want to paste this file in: ";
-                getline(cin>>std::ws, temp_destination_path);
-
-                if(fs::exists(temp_destination_path))
-                {
-                    destination_path = temp_destination_path;
-                    break;
-                }
-                else
-                {
-                    cout<<"Enter a valid path\n";
-                }
+                destination_path = temp_destination_path;
+                break;
             }
-            try{
-                fs::copy(source_path, destination_path);
-                std::cout << "File copied successfully!\n";
-                } catch (const fs::filesystem_error& e) {
-                std::cerr << "Error copying file: " << e.what() << '\n';
-                }
+            else
+            {
+                cout<<"Enter a valid path\n";
+                cin.clear();
+            }
         }
+            fs::copy(source_path, destination_path);
+            std::cout << "File copied successfully!\n";
+            } catch (const fs::filesystem_error& e) {
+            std::cerr << "Error copying file: " << e.what() << '\n';
+            }
+    
+//-----------------------------------------------------------------------------------
 
-    void copyFolder(){}
+void copyFolder()
+    {
+        string folder_to_move{}; //declaring required variables for copyFolder()
+        fs::path source_path{};
+        fs::path destination_path{};
+
+        try
+        {
+            // Get source path
+            while(true)
+                {
+                    cout << "Please enter the name of folder you want to copy: ";
+                    getline(cin >> std::ws, folder_to_move);
+
+                    fs::path temp_source_path = prev_path.back() / folder_to_move;
+
+                    if(fs::is_directory(temp_source_path))//checking if source path exists
+                    {
+                        source_path = temp_source_path;
+                        break;
+                    }
+                    else
+                    {
+                        cerr << "Error: Not a valid directory\n";
+                        cin.clear();
+                    }
+                }
+
+            // Get destination path
+            while(true)
+                {
+                    string temp_dest{};
+                    cout << "Please enter the destination path: ";
+                    getline(cin >> std::ws, temp_dest);
+
+                    fs::path temp_destination_path(temp_dest);
+
+                    if(fs::exists(temp_destination_path) && fs::is_directory(temp_destination_path))
+                    {
+                        destination_path = temp_destination_path / source_path.filename();
+                        break;
+                    }
+                    else
+                    {
+                        cerr << "Error: Not a valid directory path\n";
+                        cin.clear();
+                    }
+                }
+
+            // Perform copy
+            fs ::copy(source_path, destination_path,
+                    fs::copy_options::recursive |
+                    fs::copy_options::overwrite_existing);
+
+                cout << "Folder copied successfully to: " << destination_path << "\n\n";
+            }catch (const fs::filesystem_error& e){
+                cerr << "Filesystem error: " << e.what() << '\n';
+            }catch (const std::exception& e){
+                cerr << "Error: " << e.what() << '\n';
+            }
+    }
 };
 
 //------------------------------------------------------------------------------------------------
